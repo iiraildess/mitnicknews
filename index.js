@@ -3,6 +3,8 @@ const { createServer } = require('node:http');
 const { join } = require('node:path');
 const { Server } = require('socket.io');
 const hbs = require("express-handlebars");
+const db = require('./mysql/database.js');
+const { getIP } = require('./funcs/ip.js');
 
 
 const app = express();
@@ -13,7 +15,11 @@ app.engine('hbs', hbs.engine({ extname: ".hbs" }));
 app.set('view engine', 'hbs');
 app.set('views', join(__dirname, 'views'));
 
-app.get('/', (req, res) => {
+app.get("/login", async(req, res) =>{
+  const ip = await getIP()
+})
+
+app.get('/', async(req, res) => {
   res.render("home");
 });
 
